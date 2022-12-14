@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Account Balance</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let record of getLedgerRecords()"
+            [ngClass]="
+              record.transactionType == 0 ? 'table-success' : 'table-warning'
+            "
+          >
+            <th scope="row">{{ record.id }}</th>
+            <td>{{ record.title }}</td>
+            <td>{{ record.amount }}</td>
+            <td>{{ record.accountBalance }}</td>
+            <td>{{ record.date | date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

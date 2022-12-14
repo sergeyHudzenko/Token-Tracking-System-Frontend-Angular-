@@ -1,0 +1,24 @@
+<div class="col">
+  <div class="card shadow-sm">
+    <div
+      class="bd-placeholder-img"
+      [ngStyle]="{ 'background-image': 'url(' + game.image + ')' }"
+    ></div>
+    <div class="card-body">
+      <h4 class="card-title">{{ game.title }}</h4>
+      <p class="card-text">{{ game.description.substring(0, 30) }} ...</p>
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+          <a
+            type="button"
+            routerLink="/game/{{ game.id }}"
+            class="btn btn-sm btn-outline-secondary"
+          >
+            Play game
+          </a>
+        </div>
+        <small class="text-muted">{{ game.price | currency }}</small>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div
+  *ngIf="informationService.infoMessage$ | async as info"
+  class="container bg-success bg-gradient info-container"
+>
+  <div class="row">
+    <div class="col-12 text-center">
+      {{ info }}
+    </div>
+  </div>
+</div>

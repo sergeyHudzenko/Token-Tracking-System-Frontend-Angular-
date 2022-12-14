@@ -1,0 +1,10 @@
+<div
+  *ngIf="errorService.errorMessage$ | async as error"
+  class="container bg-danger bg-gradient error-container"
+>
+  <div class="row">
+    <div class="col-12 text-center">
+      {{ error }}
+    </div>
+  </div>
+</div>
