@@ -11,7 +11,7 @@ import { SearchProviderService } from '../../services/search/search.service';
 })
 export class GamesComponent implements OnInit {
   // games: IGame[] = [];
-  games$: Observable<IGame[]>;
+  games$: Observable<{ data: IGame[] }>;
 
   constructor(
     private gamesService: GamesService,
@@ -19,7 +19,6 @@ export class GamesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.gamesService.getAll());
     this.games$ = this.gamesService.getAll();
     // this.gamesService.getAll().subscribe((games) => {
     //   this.games = games;

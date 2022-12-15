@@ -11,13 +11,13 @@ import { IGame } from '../../models/games/IGame';
 export class GamesService {
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<IGame[]> {
-    return this.http.get<IGame[]>(`${config.apiUrl}/games`);
+  getAll(): Observable<{ data: IGame[] }> {
+    return this.http.get<{ data: IGame[] }>(`${config.apiUrl}/games`);
   }
 
-  getGame(id: number): Observable<IGame> {
+  getGame(id: number): Observable<{ data: IGame }> {
     // const gameData: IGame = gamesData.filter((data) => data.id === id)[0];
     // return new BehaviorSubject<IGame>(gameData).asObservable();
-    return this.http.get<IGame>(`${config.apiUrl}/games/${id}`);
+    return this.http.get<{ data: IGame }>(`${config.apiUrl}/games/${id}`);
   }
 }

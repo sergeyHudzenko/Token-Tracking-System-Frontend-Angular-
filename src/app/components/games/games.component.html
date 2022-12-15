@@ -4,7 +4,7 @@
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <game-card
           *ngFor="
-            let game of (games | async).data
+            let game of (games$ | async).data
               | filterGames: searchService.getQuery()
           "
           [game]="game"

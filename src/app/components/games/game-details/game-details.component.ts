@@ -26,13 +26,16 @@ export class GameDetailsComponent {
 
     if (id) {
       this.gamesService.getGame(id).subscribe((data) => {
-        this.game = data;
+        this.game = data.data;
       });
     }
   }
 
   payForGame() {
-    this.accountService.compute(this.game.price, LedgerTransactionType.SpendTokens);
+    this.accountService.compute(
+      this.game.price,
+      LedgerTransactionType.SpendTokens
+    );
     this.addToLedgerTable();
   }
 
