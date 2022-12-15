@@ -12,7 +12,7 @@ import { config } from '../../config/config';
   providedIn: 'root',
 })
 export class AccountService {
-  private accountData: Subject<{ data: IAccount }>;
+  private accountData: Subject<{ data: IAccount }> = new Subject();
   private accountDataCached: Subject<{ data: IAccount }>;
 
   constructor(
@@ -26,7 +26,9 @@ export class AccountService {
   refreshData() {
     this.http
       .get<{ data: IAccount[] }>(`${config.apiUrl}/user`)
-      .subscribe((res: any) => this.accountDataCached.next(res));
+      .subscribe((res: any) => {
+        this.accountDataCached.next(res);
+      });
   }
 
   initializeData() {
@@ -45,13 +47,13 @@ export class AccountService {
   }
 
   set(amount: number) {
-    this.accountData.subscribe({
-      next: (v) => {
+    this.accountDataCached.subscribe((accountInfo) => {
+      this.accountData.next({
         data: {
-          avatar: v.data.avatar;
-          accountBalance: amount;
-        }
-      },
+          avatar: accountInfo.data.avatar,
+          accountBalance: amount,
+        },
+      });
     });
   }
 
