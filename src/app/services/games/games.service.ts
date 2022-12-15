@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {
+  // BehaviorSubject,
+  Observable,
+} from 'rxjs';
 import { config } from '../../config/config';
-import gamesData from '../../data/games/gamesData';
+// import gamesData from '../../data/games/gamesData';
 import { IGame } from '../../models/games/IGame';
 
 @Injectable({

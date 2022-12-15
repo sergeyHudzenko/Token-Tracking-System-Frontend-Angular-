@@ -12,17 +12,19 @@ import { AccountService } from '../account/account.service';
 })
 export class LedgerStoreService {
   private ledger: ILedger[] = [];
-  private cachedLedgerData: Subject<any>;
+  private cachedLedgerData: Subject<{data: ILedger[]}>;
 
   constructor(
     private accountService: AccountService,
     private http: HttpClient
-  ) {}
+  ) {
+    this.initializeData()
+  }
 
   refreshData() {
     this.http
-      .get(`${config.apiUrl}/ledger`)
-      .subscribe((res) => this.cachedLedgerData.next(res));
+      .get<{data: ILedger[]}>(`${config.apiUrl}/ledger`)
+      .subscribe((res: any) => this.cachedLedgerData.next(res));
   }
 
   initializeData() {
@@ -41,6 +43,7 @@ export class LedgerStoreService {
   }
 
   getAll(): ILedger[] {
+    this.ledger = this.cachedLedgerData.
     return this.ledger;
   }
 
