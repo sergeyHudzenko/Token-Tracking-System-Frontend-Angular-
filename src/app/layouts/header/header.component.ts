@@ -31,9 +31,6 @@ export class HeaderComponent implements OnInit {
   }
 
   getAccountBalance() {
-    this.accountService.get().subscribe(d => {
-      console.log(d)
-    })
     this.account$ = this.accountService.get();
   }
 }

@@ -59,6 +59,7 @@
         >
           <li class="text-center">
             <b>
+              {{ (account$ | async).data.avatar }}
               Balance: {{ (account$ | async).data.accountBalance | currency }}
             </b>
           </li>
