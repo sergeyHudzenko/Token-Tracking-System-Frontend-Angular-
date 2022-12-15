@@ -62,6 +62,7 @@ export class AccountService {
     switch (type) {
       case LedgerTransactionType.PurchaseToken:
         computedBalance = this.currentBalance + amount;
+
         this.set(computedBalance);
 
         this.informationService.handle(
