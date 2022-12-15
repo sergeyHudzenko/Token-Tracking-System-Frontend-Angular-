@@ -45,7 +45,7 @@
           aria-expanded="true"
         >
           <img
-            [src]="(account$ | async).data.avatar"
+            src="https://avatars.githubusercontent.com/u/78405544?v=4"
             alt="mdo"
             width="32"
             height="32"
@@ -59,7 +59,6 @@
         >
           <li class="text-center">
             <b>
-              {{ (account$ | async).data.avatar }}
               Balance: {{ (account$ | async).data.accountBalance | currency }}
             </b>
           </li>
