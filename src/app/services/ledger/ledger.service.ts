@@ -65,7 +65,7 @@ export class LedgerStoreService {
     let title = '';
 
     this.accountService.get().subscribe((info) => {
-      accountBalance = info.accountBalance;
+      accountBalance = info.data.accountBalance;
     });
 
     switch (transactionType) {
