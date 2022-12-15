@@ -5,6 +5,7 @@ import { IAccount } from '../../models/account/IAccount';
 import { LedgerTransactionType } from '../../models/ledger/ledger-transaction-type.enum';
 import { ErrorService } from '../error/error.service';
 import { InformationService } from '../information/information.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,8 @@ import { InformationService } from '../information/information.service';
 export class AccountService {
   constructor(
     private errorService: ErrorService,
-    private informationService: InformationService
+    private informationService: InformationService,
+    private http: HttpClient
   ) {}
 
   get(): Observable<IAccount> {

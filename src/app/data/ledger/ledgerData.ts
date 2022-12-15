@@ -3,10 +3,12 @@ import { LedgerTransactionType } from '../../models/ledger/ledger-transaction-ty
 import { AccountService } from '../../services/account/account.service';
 import { ErrorService } from '../../services/error/error.service';
 import { InformationService } from '../../services/information/information.service';
+import { HttpClient } from '@angular/common/http';
 
 const accountService = new AccountService(
   new ErrorService(),
-  new InformationService()
+  new InformationService(),
+  new HttpClient()
 );
 
 const tableSize = 10;
