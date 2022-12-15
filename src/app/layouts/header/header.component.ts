@@ -11,7 +11,7 @@ import { SearchProviderService } from '../../services/search/search.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  account$: Observable<IAccount>;
+  account$: Observable<{ data: IAccount }>;
   tokenObservable = new BehaviorSubject<boolean>(true);
   searchValue: string = '';
 

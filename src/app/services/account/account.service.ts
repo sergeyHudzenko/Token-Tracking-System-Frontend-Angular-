@@ -6,6 +6,7 @@ import { LedgerTransactionType } from '../../models/ledger/ledger-transaction-ty
 import { ErrorService } from '../error/error.service';
 import { InformationService } from '../information/information.service';
 import { HttpClient } from '@angular/common/http';
+import { config } from '../../config/config';
 
 @Injectable({
   providedIn: 'root',
@@ -17,8 +18,8 @@ export class AccountService {
     private http: HttpClient
   ) {}
 
-  get(): Observable<IAccount> {
-    return new BehaviorSubject<IAccount>(accountData).asObservable();
+  get(): Observable<{ data: IAccount }> {
+    return this.http.get<{ data: IAccount }>(`${config.apiUrl}/user`);
   }
 
   set(amount: number) {
@@ -32,7 +33,7 @@ export class AccountService {
       .subscribe((info) => {
         switch (type) {
           case LedgerTransactionType.PurchaseToken:
-            computedBalance = info.accountBalance + amount;
+            computedBalance = info.data.accountBalance + amount;
             this.set(computedBalance);
 
             this.informationService.handle(
@@ -41,7 +42,7 @@ export class AccountService {
 
             break;
           case LedgerTransactionType.SpendTokens:
-            computedBalance = info.accountBalance - amount;
+            computedBalance = info.data.accountBalance - amount;
 
             if (computedBalance < 0) {
               return this.errorService.handle(
