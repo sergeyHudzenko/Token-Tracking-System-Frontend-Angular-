@@ -17,7 +17,8 @@ import { ErrorComponent } from './components/error/error.component';
 import { TokenPricingComponent } from './components/tokens/token-pricing/token-pricing.component';
 import { BuyTokensPageComponent } from './pages/buy-tokens-page/buy-tokens-page.component';
 import { InformationComponent } from './components/information/information.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './interceptors/token-interceptor';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
@@ -43,5 +44,8 @@ import { HttpClientModule } from '@angular/common/http';
     BuyTokensPageComponent,
   ],
   bootstrap: [AppComponent],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+  ],
 })
 export class AppModule {}
