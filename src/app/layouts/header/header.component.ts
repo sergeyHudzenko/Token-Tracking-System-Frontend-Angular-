@@ -11,7 +11,7 @@ import { SearchProviderService } from '../../services/search/search.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  balance$: Observable<IAccount>;
+  account$: Observable<IAccount>;
   tokenObservable = new BehaviorSubject<boolean>(true);
   searchValue: string = '';
 
@@ -31,6 +31,6 @@ export class HeaderComponent implements OnInit {
   }
 
   getAccountBalance() {
-    this.balance$ = this.accountService.get();
+    this.account$ = this.accountService.get();
   }
 }
