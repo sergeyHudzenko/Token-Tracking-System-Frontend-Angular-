@@ -12,6 +12,7 @@ import { config } from '../../config/config';
   providedIn: 'root',
 })
 export class AccountService {
+  private currentBalance: number = 0;
   private accountData: Subject<{ data: IAccount }> = new Subject();
   private accountDataCached: Subject<{ data: IAccount }>;
 
@@ -41,6 +42,7 @@ export class AccountService {
   get(): Observable<{ data: IAccount }> {
     this.accountDataCached.subscribe((data) => {
       this.accountData.next(data);
+      this.currentBalance = data.data.accountBalance;
     });
 
     return this.accountData;
@@ -59,7 +61,7 @@ export class AccountService {
 
     switch (type) {
       case LedgerTransactionType.PurchaseToken:
-        computedBalance = 0 + amount;
+        computedBalance = this.currentBalance + amount;
         this.set(computedBalance);
 
         this.informationService.handle(
@@ -68,7 +70,7 @@ export class AccountService {
 
         break;
       case LedgerTransactionType.SpendTokens:
-        computedBalance = 0 - amount;
+        computedBalance = this.currentBalance - amount;
 
         if (computedBalance < 0) {
           return this.errorService.handle('Not enough tokens on the account');
