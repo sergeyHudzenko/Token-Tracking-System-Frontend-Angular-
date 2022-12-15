@@ -17,9 +17,10 @@ import { ErrorComponent } from './components/error/error.component';
 import { TokenPricingComponent } from './components/tokens/token-pricing/token-pricing.component';
 import { BuyTokensPageComponent } from './pages/buy-tokens-page/buy-tokens-page.component';
 import { InformationComponent } from './components/information/information.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, AppRoutingModule],
+  imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
   declarations: [
     AppComponent,
     HeaderComponent,
