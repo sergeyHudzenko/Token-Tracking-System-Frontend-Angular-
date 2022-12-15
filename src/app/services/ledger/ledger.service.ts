@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { config } from '../../config/config';
 import { IGame } from '../../models/games/IGame';
 import { ILedger } from '../../models/ledger/ILedger';
 import { LedgerTransactionType } from '../../models/ledger/ledger-transaction-type.enum';
@@ -9,8 +12,25 @@ import { AccountService } from '../account/account.service';
 })
 export class LedgerStoreService {
   private ledger: ILedger[] = [];
+  private cachedLedgerData: Subject<any>;
 
-  constructor(private accountService: AccountService) {}
+  constructor(
+    private accountService: AccountService,
+    private http: HttpClient
+  ) {}
+
+  refreshData() {
+    this.http
+      .get(`${config.apiUrl}/ledger`)
+      .subscribe((res) => this.cachedLedgerData.next(res));
+  }
+
+  initializeData() {
+    if (!this.cachedLedgerData) {
+      this.cachedLedgerData = new Subject();
+      this.refreshData();
+    }
+  }
 
   add(record: ILedger | ILedger[]) {
     if (Array.isArray(record)) {
