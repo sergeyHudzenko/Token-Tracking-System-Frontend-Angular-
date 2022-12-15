@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, pairwise, Subject } from 'rxjs';
 // import accountData from '../../data/account/accountData';
 import { IAccount } from '../../models/account/IAccount';
 import { LedgerTransactionType } from '../../models/ledger/ledger-transaction-type.enum';
@@ -47,7 +47,7 @@ export class AccountService {
   }
 
   set(amount: number) {
-    this.accountData.next({
+    this.accountDataCached.next({
       data: {
         accountBalance: amount,
       },
@@ -57,30 +57,28 @@ export class AccountService {
   compute(amount: number, type: LedgerTransactionType) {
     let computedBalance: number = 0;
 
-    this.accountData.subscribe((data) => {
-      switch (type) {
-        case LedgerTransactionType.PurchaseToken:
-          computedBalance = data.data.accountBalance + amount;
-          this.set(computedBalance);
+    switch (type) {
+      case LedgerTransactionType.PurchaseToken:
+        computedBalance = 0 + amount;
+        this.set(computedBalance);
 
-          this.informationService.handle(
-            `${amount} Tokens have been successfully added to your account`
-          );
+        this.informationService.handle(
+          `${amount} Tokens have been successfully added to your account`
+        );
 
-          break;
-        case LedgerTransactionType.SpendTokens:
-          computedBalance = data.data.accountBalance - amount;
+        break;
+      case LedgerTransactionType.SpendTokens:
+        computedBalance = 0 - amount;
 
-          if (computedBalance < 0) {
-            return this.errorService.handle('Not enough tokens on the account');
-          }
+        if (computedBalance < 0) {
+          return this.errorService.handle('Not enough tokens on the account');
+        }
 
-          this.set(computedBalance);
+        this.set(computedBalance);
 
-          break;
-        default:
-          break;
-      }
-    });
+        break;
+      default:
+        break;
+    }
   }
 }
